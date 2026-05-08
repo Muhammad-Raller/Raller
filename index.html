@@ -4,58 +4,67 @@
   <meta charset="UTF-8">
   <title>Raller AI</title>
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: url('https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      width: 100%;
       font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333;
     }
-
-    /* Car drifting animation */
-    .car {
-      position: absolute;
-      bottom: 100px;
-      left: -400px;
-      width: 400px;
-      height: auto;
-      background: url('https://i.ibb.co/7jZpL6r/generic-rally-car.png') center/contain no-repeat;
-      animation: driftIn 5s ease-in-out forwards;
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: #fff;
+      z-index: 9999;
     }
-
-    @keyframes driftIn {
-      0% { left: -400px; transform: rotate(-10deg); opacity: 1; }
-      50% { left: 50%; transform: translateX(-50%) rotate(10deg); opacity: 1; }
-      100% { left: 50%; transform: translateX(-50%) rotate(10deg); opacity: 0; }
+    .spinner {
+      border: 6px solid #eee;
+      border-top: 6px solid #0078D7;
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
     }
-
-    /* Jotform embed hidden initially */
-    .raller {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      max-width: 900px;
-      opacity: 0;
-      transition: opacity 2s ease-in;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #content {
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <!-- Car drifting -->
-  <div class="car"></div>
+  <!-- Loading screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Loading Raller AI...</p>
+  </div>
 
-  <!-- Your Jotform AI embed -->
-  <iframe class="raller"
-    src="https://agent.jotform.com/019e0212adfa738d9684f6767fbe14587551"
-    width="100%" height="600" style="border:none;">
-  </iframe>
+  <!-- Main content -->
+  <div id="content">
+    <!-- IMPORTANT: Replace with your Jotform Publish → Embed link -->
+    <iframe src="https://agent.jotform.com/019e0212adfa738d9684f6767fbe14587551"></iframe>
+  </div>
 
   <script>
-    // Show Raller AI after 5s drift + 2s fade
-    setTimeout(() => {
-      document.querySelector('.raller').style.opacity = 1;
-    }, 7000); // 5s drift + 2s fade
+    window.onload = function() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    };
   </script>
 </body>
 </html>
