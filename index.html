@@ -57,7 +57,29 @@
       };
     }
   </script>
-</body>
+</body><!-- Rally Car + Beep Sounds -->
+<audio id="rallySound" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/transportation/car_rev.ogg" type="audio/ogg">
+</audio>
+
+<audio id="beepSound" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<button onclick="startSounds()">Start Engine</button>
+
+<script>
+  function startSounds() {
+    const rally = document.getElementById("rallySound");
+    const beep = document.getElementById("beepSound");
+
+    rally.play();
+    rally.onended = () => {
+      beep.play();
+    };
+  }
+</script>
+
 </html>
 
 
