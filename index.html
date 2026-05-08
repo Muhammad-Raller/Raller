@@ -7,79 +7,59 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      background: #111;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
     }
-    .container {
+
+    .loading {
       text-align: center;
     }
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      background: #0078d7;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+
+    .car {
+      width: 150px;
+      height: 80px;
+      background: url('https://copilot.microsoft.com/th/id/BCO.47afa215-0b64-4574-a72e-e4e26902b90a.png') no-repeat center/contain;
+      position: relative;
+      animation: drift 3s infinite ease-in-out;
     }
-    button:hover {
-      background: #005a9e;
+
+    @keyframes drift {
+      0%   { transform: translateX(-200px) rotate(-10deg); }
+      50%  { transform: translateX(200px) rotate(10deg); }
+      100% { transform: translateX(-200px) rotate(-10deg); }
+    }
+
+    .smoke {
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      animation: smoke 1.5s infinite;
+    }
+
+    @keyframes smoke {
+      0%   { transform: scale(0.5) translateY(0); opacity: 1; }
+      100% { transform: scale(2) translateY(-40px); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Raller 🚀</h1>
-    <p>Click below to start the rally car sound!</p>
-    <button onclick="startSounds()">Start Engine</button>
+  <div class="loading">
+    <h1>Raller AI 🚗💨</h1>
+    <p>Drifting into action...</p>
+    <div class="car">
+      <div class="smoke"></div>
+    </div>
   </div>
-
-  <!-- Rally Car + Beep Sounds -->
-  <audio id="rallySound" preload="auto">
-    <source src="https://actions.google.com/sounds/v1/transportation/car_rev.ogg" type="audio/ogg">
-  </audio>
-
-  <audio id="beepSound" preload="auto">
-    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
-  </audio>
-
-  <script>
-    function startSounds() {
-      const rally = document.getElementById("rallySound");
-      const beep = document.getElementById("beepSound");
-
-      rally.play();
-      rally.onended = () => {
-        beep.play();
-      };
-    }
-  </script>
-</body><!-- Rally Car + Beep Sounds -->
-<audio id="rallySound" preload="auto">
-  <source src="https://actions.google.com/sounds/v1/transportation/car_rev.ogg" type="audio/ogg">
-</audio>
-
-<audio id="beepSound" preload="auto">
-  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
-</audio>
-
-<button onclick="startSounds()">Start Engine</button>
-
-<script>
-  function startSounds() {
-    const rally = document.getElementById("rallySound");
-    const beep = document.getElementById("beepSound");
-
-    rally.play();
-    rally.onended = () => {
-      beep.play();
-    };
-  }
-</script>
-
+</body>
 </html>
 
 
