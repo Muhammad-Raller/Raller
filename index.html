@@ -11,14 +11,15 @@
       font-family: Arial, sans-serif;
     }
 
+    /* Car drifting animation */
     .car {
       position: absolute;
       bottom: 100px;
       left: -400px;
       width: 400px;
       height: auto;
-      background: url('https://copilot.microsoft.com/th/id/BCO.f69ef8e3-62fd-4fa7-b62b-79381b3168ba.png') center/contain no-repeat;
-      animation: driftIn 6s ease-in-out forwards;
+      background: url('https://i.ibb.co/7jZpL6r/generic-rally-car.png') center/contain no-repeat;
+      animation: driftIn 5s ease-in-out forwards;
     }
 
     @keyframes driftIn {
@@ -27,32 +28,34 @@
       100% { left: 50%; transform: translateX(-50%) rotate(10deg); opacity: 0; }
     }
 
+    /* Jotform embed hidden initially */
     .raller {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: white;
-      font-size: 48px;
+      width: 80%;
+      max-width: 900px;
       opacity: 0;
-      animation: fadeIn 6s ease-in-out 6s forwards;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      transition: opacity 2s ease-in;
     }
   </style>
 </head>
 <body>
+  <!-- Car drifting -->
   <div class="car"></div>
-  <div class="raller">Raller AI</div>
+
+  <!-- Your Jotform AI embed -->
+  <iframe class="raller"
+    src="https://agent.jotform.com/019e0212adfa738d9684f6767fbe14587551"
+    width="100%" height="600" style="border:none;">
+  </iframe>
 
   <script>
-    // End animation after 12 seconds
+    // Show Raller AI after 5s drift + 2s fade
     setTimeout(() => {
-      document.querySelector('.car').style.display = 'none';
-    }, 12000);
+      document.querySelector('.raller').style.opacity = 1;
+    }, 7000); // 5s drift + 2s fade
   </script>
 </body>
 </html>
