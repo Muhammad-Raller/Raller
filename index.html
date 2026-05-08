@@ -6,60 +6,53 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       overflow: hidden;
-    }
-
-    .loading {
-      text-align: center;
+      background: url('https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      font-family: Arial, sans-serif;
     }
 
     .car {
-      width: 150px;
-      height: 80px;
-      background: url('https://copilot.microsoft.com/th/id/BCO.47afa215-0b64-4574-a72e-e4e26902b90a.png') no-repeat center/contain;
-      position: relative;
-      animation: drift 3s infinite ease-in-out;
-    }
-
-    @keyframes drift {
-      0%   { transform: translateX(-200px) rotate(-10deg); }
-      50%  { transform: translateX(200px) rotate(10deg); }
-      100% { transform: translateX(-200px) rotate(-10deg); }
-    }
-
-    .smoke {
-      width: 20px;
-      height: 20px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 50%;
       position: absolute;
-      bottom: -10px;
-      left: 50%;
-      animation: smoke 1.5s infinite;
+      bottom: 100px;
+      left: -400px;
+      width: 400px;
+      height: auto;
+      background: url('https://copilot.microsoft.com/th/id/BCO.f69ef8e3-62fd-4fa7-b62b-79381b3168ba.png') center/contain no-repeat;
+      animation: driftIn 6s ease-in-out forwards;
     }
 
-    @keyframes smoke {
-      0%   { transform: scale(0.5) translateY(0); opacity: 1; }
-      100% { transform: scale(2) translateY(-40px); opacity: 0; }
+    @keyframes driftIn {
+      0% { left: -400px; transform: rotate(-10deg); opacity: 1; }
+      50% { left: 50%; transform: translateX(-50%) rotate(10deg); opacity: 1; }
+      100% { left: 50%; transform: translateX(-50%) rotate(10deg); opacity: 0; }
+    }
+
+    .raller {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 48px;
+      opacity: 0;
+      animation: fadeIn 6s ease-in-out 6s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="loading">
-    <h1>Raller AI 🚗💨</h1>
-    <p>Drifting into action...</p>
-    <div class="car">
-      <div class="smoke"></div>
-    </div>
-  </div>
+  <div class="car"></div>
+  <div class="raller">Raller AI</div>
+
+  <script>
+    // End animation after 12 seconds
+    setTimeout(() => {
+      document.querySelector('.car').style.display = 'none';
+    }, 12000);
+  </script>
 </body>
 </html>
-
-
