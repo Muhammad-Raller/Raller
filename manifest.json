@@ -34,7 +34,10 @@
       "purpose": "maskable"
     }
   ],
-  "categories": ["education", "productivity"],
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "screenshots": [
     {
       "src": "icon-192.png",
