@@ -2,7 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Raller AI</title>
+  <title>Raller AI - PWA</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0078D7">
+  <meta name="description" content="Raller AI - Your no-code AI application running as a Progressive Web App.">
+
+  <!-- Link to the PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
@@ -61,10 +72,18 @@
   </div>
 
   <script>
+    // Hide the loading screen and show the content
     window.onload = function() {
       document.getElementById("loader").style.display = "none";
       document.getElementById("content").style.display = "block";
     };
+
+    // Register the Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log("Service Worker Registered!"))
+        .catch(err => console.error("Error registering Service Worker:", err));
+    }
   </script>
 </body>
 </html>
