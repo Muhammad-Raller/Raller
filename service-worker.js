@@ -1,10 +1,11 @@
-const CACHE_NAME = "raller-ai-cache-v1";
+const CACHE_NAME = "raller-ai-cache-v1"; // Change this for updates
 const urlsToCache = [
-  "/",
+  "/", // Root or index.html
   "index.html",
   "manifest.json",
-  "icon-192.png",
-  "icon-512.png"
+  "style.css", // Add your CSS file (if any)
+  "icon-192.png", // Icon file for your app
+  "icon-512.png"  // Another icon file for your app
 ];
 
 // Event: Install Service Worker and Cache Files
@@ -13,47 +14,20 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("[Service Worker] Caching Files...");
-      return cache.addAll(urlsToCache).catch((err) => {
-        console.warn("[Service Worker] Some files could not be cached:", err);
-        // Don't fail the install if some files are missing
-      });
+      return cache.addAll(urlsToCache);
     })
   );
-  self.skipWaiting(); // Activate immediately
 });
 
 // Event: Fetch Files from Cache or Network
 self.addEventListener("fetch", (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Handle external requests (like Jotform) - go online first
-  if (url.origin !== location.origin) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Cache successful external requests
-          if (response.ok) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          // Return cached version if offline
-          return caches.match(request);
-        })
-    );
-  } else {
-    // Handle local requests - cache first strategy
-    event.respondWith(
-      caches.match(request).then((response) => {
-        return response || fetch(request);
-      })
-    );
-  }
+  console.log("[Service Worker] Fetch Event for:", event.request.url);
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      // If cache hit, return cached response
+      return response || fetch(event.request);
+    })
+  );
 });
 
 // Event: Remove Old Caches on Activation
@@ -66,12 +40,11 @@ self.addEventListener("activate", (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (!cacheWhitelist.includes(cacheName)) {
-            console.log("[Service Worker] Deleting Old Cache:", cacheName);
+            console.log("[Service Worker] Deleting Cache:", cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
-  self.clients.claim(); // Take control of pages immediately
 });
