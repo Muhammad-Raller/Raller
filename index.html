@@ -85,5 +85,12 @@
         .catch(err => console.error("Error registering Service Worker:", err));
     }
   </script>
-</body>
+</body><script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('service-worker.js') // Ensure the file name and path are correct
+      .then(() => console.log("Service Worker Registered!")) // Success
+      .catch((err) => console.error("Service Worker registration failed:", err)); // Failure
+  }
+</script>
 </html>
