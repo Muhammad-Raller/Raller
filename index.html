@@ -2,24 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Raller AI - PWA</title>
+  <title>Raller AI - Your AI Assistant for Students</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0078D7">
-  <meta name="description" content="Raller AI - Your no-code AI application running as a Progressive Web App.">
-
+  <meta name="description" content="Raller AI - Your intelligent AI assistant designed for students. Get help with problems, find safe information, and learn gaming strategies.">
+  
   <!-- Link to the PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- Favicon -->
+  
+  <!-- Favicon & Icons -->
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-
+  <link rel="apple-touch-icon" href="icon-192.png">
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
       height: 100%;
       width: 100%;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #ffffff;
       color: #333;
     }
@@ -31,12 +32,12 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background: #fff;
+      background: linear-gradient(135deg, #0078D7 0%, #00A4EF 100%);
       z-index: 9999;
     }
     .spinner {
-      border: 6px solid #eee;
-      border-top: 6px solid #0078D7;
+      border: 6px solid rgba(255, 255, 255, 0.3);
+      border-top: 6px solid #ffffff;
       border-radius: 50%;
       width: 50px; height: 50px;
       animation: spin 1s linear infinite;
@@ -45,6 +46,12 @@
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+    #loader p {
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
     #content {
       width: 100%;
@@ -67,30 +74,23 @@
 
   <!-- Main content -->
   <div id="content">
-    <!-- IMPORTANT: Replace with your Jotform Publish → Embed link -->
+    <!-- Jotform AI Agent Embed -->
     <iframe src="https://agent.jotform.com/019e0212adfa738d9684f6767fbe14587551"></iframe>
   </div>
 
   <script>
     // Hide the loading screen and show the content
-    window.onload = function() {
+    window.addEventListener('load', function() {
       document.getElementById("loader").style.display = "none";
       document.getElementById("content").style.display = "block";
-    };
+    });
 
     // Register the Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log("Service Worker Registered!"))
-        .catch(err => console.error("Error registering Service Worker:", err));
+        .then(() => console.log("✓ Service Worker Registered Successfully!"))
+        .catch(err => console.error("✗ Service Worker registration failed:", err));
     }
   </script>
-</body><script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('service-worker.js') // Ensure the file name and path are correct
-      .then(() => console.log("Service Worker Registered!")) // Success
-      .catch((err) => console.error("Service Worker registration failed:", err)); // Failure
-  }
-</script>
+</body>
 </html>
